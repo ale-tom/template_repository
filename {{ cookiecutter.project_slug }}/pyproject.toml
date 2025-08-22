@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ cookiecutter.project_slug }}"
+version = "0.1.0"
+description = "{{ cookiecutter.description }}"
+readme = "README.md"
+requires-python = ">= {{ cookiecutter.python_version }}"
+license = { text = "{{ cookiecutter.license }}" }
+authors = [
+  { name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}" }
+]
+dependencies = [
+  # Add runtime deps here, e.g. "requests>=2.31"
+]
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+
+[project.urls]
+Homepage = "https://github.com/ale-tom/{{ cookiecutter.project_slug }}"
+Issues = "https://github.com/ale-tom/{{ cookiecutter.project_slug }}/issues"
+
+# --- Poetry dependency groups (used by: poetry install --with dev) ---
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+ruff = "^0.5.0"
+black = "^24.0"
+mypy = "^1.11"
+build = "^1.2"
+twine = "^5.0"
+
+# --- Setuptools "src" layout ---
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["{{ cookiecutter.project_slug }}*"]
+
+# --- Tooling config ---
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+warn_return_any = true
+warn_unused_configs = true
